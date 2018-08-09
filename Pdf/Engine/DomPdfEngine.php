@@ -23,9 +23,12 @@ class DomPdfEngine extends AbstractPdfEngine {
  */
 	public function output() {
 		$DomPDF = new Dompdf();
-		foreach ($this->config('options') as $option => $value) {
+		
+		$options = $this->config('options');
+		if ($options) foreach ($this->config('options') as $option => $value) {
 			$DomPDF->set_option($option, $value);
 		}
+		
 		$DomPDF->set_paper($this->_Pdf->pageSize(), $this->_Pdf->orientation());
 		$DomPDF->load_html($this->_Pdf->html());
 		$DomPDF->render();
